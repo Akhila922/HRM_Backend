@@ -1,69 +1,69 @@
-//package com.cg.hrms.controller;
-//
-//import java.util.List;
-//import java.util.stream.Collectors;
-//
-//import org.springframework.web.bind.annotation.*;
-//
-//import com.cg.hrms.entity.Job;
-//import com.cg.hrms.dto.EmployeeDtoVishnu;
-//import com.cg.hrms.entity.Employee;
-//import com.cg.hrms.service.JobServiceVishnu;
-//import com.cg.hrms.service.EmployeeServiceVishnu;
-//
-//@RestController
-//@RequestMapping("/api/jobs")
-//@CrossOrigin(origins = "*")
-//public class JobControllerVishnu {
-//
-//    private final JobServiceVishnu jobService;
-//    private final EmployeeServiceVishnu employeeService;
-//
-//    public JobControllerVishnu(JobServiceVishnu jobService, EmployeeServiceVishnu employeeService) {
-//        this.jobService = jobService;
-//        this.employeeService = employeeService;
-//    }
-//
-//    @GetMapping
-//    public List<Job> getAllJobs() {
-//        return jobService.getAllJobs();
-//    }
-//
-////    @GetMapping("/{jobId}/employees")
-////    public List<Employee> getEmployeesByJob(@PathVariable String jobId) {
-////        return employeeService.getEmployeesByJobId(jobId);
-////    }
-//    
-//    
-//    // ✅ Fetch all employees by Job ID (with department & location)
+package com.cg.hrms.controller;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.web.bind.annotation.*;
+
+import com.cg.hrms.entity.Job;
+import com.cg.hrms.dto.EmployeeDtoVishnu;
+import com.cg.hrms.entity.Employee;
+import com.cg.hrms.service.JobServiceVishnu;
+import com.cg.hrms.service.EmployeeServiceVishnu;
+
+@RestController
+@RequestMapping("/api/jobs")
+@CrossOrigin(origins = "*")
+public class JobControllerVishnu {
+
+   private final JobServiceVishnu jobService;
+   private final EmployeeServiceVishnu employeeService;
+
+   public JobControllerVishnu(JobServiceVishnu jobService, EmployeeServiceVishnu employeeService) {
+       this.jobService = jobService;
+       this.employeeService = employeeService;
+   }
+
+   @GetMapping
+   public List<Job> getAllJobs() {
+       return jobService.getAllJobs();
+   }
+
 //    @GetMapping("/{jobId}/employees")
-//    public List<EmployeeDtoVishnu> getEmployeesByJob(@PathVariable String jobId) {
-//        return employeeService.getEmployeesByJobId(jobId).stream().map(emp -> {
-//            EmployeeDtoVishnu dto = new EmployeeDtoVishnu();
-//            dto.setEmployeeId(emp.getEmployeeId());
-//            dto.setFirstName(emp.getFirstName());
-//            dto.setLastName(emp.getLastName());
-//            dto.setEmail(emp.getEmail());
-//            dto.setPhoneNumber(emp.getPhoneNumber());
-//            dto.setSalary(emp.getSalary());
-//
-//            // ✅ Include Department & Location names safely
-//            if (emp.getDepartment() != null) {
-//                dto.setDepartmentName(emp.getDepartment().getDepartmentName());
-//                if (emp.getDepartment().getLocation() != null) {
-//                    dto.setLocationName(emp.getDepartment().getLocation().getCity());
-//                } else {
-//                    dto.setLocationName("N/A");
-//                }
-//            } else {
-//                dto.setDepartmentName("N/A");
-//                dto.setLocationName("N/A");
-//            }
-//
-//            return dto;
-//        }).collect(Collectors.toList());
+//    public List<Employee> getEmployeesByJob(@PathVariable String jobId) {
+//        return employeeService.getEmployeesByJobId(jobId);
 //    }
-//}
+   
+   
+   // ✅ Fetch all employees by Job ID (with department & location)
+   @GetMapping("/{jobId}/employees")
+   public List<EmployeeDtoVishnu> getEmployeesByJob(@PathVariable String jobId) {
+       return employeeService.getEmployeesByJobId(jobId).stream().map(emp -> {
+           EmployeeDtoVishnu dto = new EmployeeDtoVishnu();
+           dto.setEmployeeId(emp.getEmployeeId());
+           dto.setFirstName(emp.getFirstName());
+           dto.setLastName(emp.getLastName());
+           dto.setEmail(emp.getEmail());
+           dto.setPhoneNumber(emp.getPhoneNumber());
+           dto.setSalary(emp.getSalary());
+
+           // ✅ Include Department & Location names safely
+           if (emp.getDepartment() != null) {
+               dto.setDepartmentName(emp.getDepartment().getDepartmentName());
+               if (emp.getDepartment().getLocation() != null) {
+                   dto.setLocationName(emp.getDepartment().getLocation().getCity());
+               } else {
+                   dto.setLocationName("N/A");
+               }
+           } else {
+               dto.setDepartmentName("N/A");
+               dto.setLocationName("N/A");
+           }
+
+           return dto;
+       }).collect(Collectors.toList());
+   }
+}
 
 
 // package com.cg.hrms.controller;
@@ -136,4 +136,5 @@
 //         }).collect(Collectors.toList());
 //     }
 // }
+
 
