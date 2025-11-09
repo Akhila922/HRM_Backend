@@ -21,3 +21,4 @@ public class DepartmentControllerSatya {
         return departmentRepository.findByLocation_Id(locationId);
     }
 }
+
